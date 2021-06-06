@@ -1,29 +1,36 @@
 package main.two
 
+import java.time.LocalDate
+
+data class Person(
+    val name: String = "",
+    val sex: String = ""
+)
+
+enum class TestType(testType: String) {
+    TEST1("1"),
+    TEST2("2"),
+    TEST3("3"),
+    TEST4("4"),
+    TEST5("5"),
+    TEST6("6"),
+    TEST7("7"),
+    TEST8("8"),
+    TEST9("9");
+
+}
 
 fun main() {
-//    println("main two")
-//    main.one.other()
-//    vars(1,2,3,4,5,6)
-//    var sumLambda: (Int, Int) -> Int = { x, y -> x + y }
-//    println(sumLambda(1, 6))
-//    var a: String = "aaaa"
-//    var b = "a is $a"
-//    println(b)
-//    println("c is ${b.replace("a is ", "")}")
-/*    var age: String = "23"
-    println(age)*/
-//    println(age)
+    //val list = listOf("01", "02")
+    val list: List<String>? = null
+    val list2 = list?.filter { it == "01" }
+    //println(list2)
 
-/*    val ages1 = age?.toInt()
-    println(ages1)
+    val startDate = LocalDate.of(2021, 1, 10)
+    val endDate = LocalDate.of(2021, 1, 10)
+    val myDate = LocalDate.of(2021, 1, 11)
+    //if (myDate in startDate..endDate) println(true) else println(false)
+    //if ("5" in "1".."10") println(true) else println(false)
 
-    val ages2 = age?.toInt() ?: -1
-    println(ages2)*/
+    val myType = TestType.TEST1
 }
-
-fun vars(vararg v: Int) {
-    for (vt in v)
-        print(vt)
-}
-
