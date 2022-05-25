@@ -1,29 +1,40 @@
 package main.two
 
+import java.nio.ByteBuffer
+import java.nio.CharBuffer
+import java.nio.charset.Charset
+import java.nio.charset.CodingErrorAction
+import javax.xml.stream.events.Characters
+
 
 fun main() {
-//    println("main two")
-//    main.one.other()
-//    vars(1,2,3,4,5,6)
-//    var sumLambda: (Int, Int) -> Int = { x, y -> x + y }
-//    println(sumLambda(1, 6))
-//    var a: String = "aaaa"
-//    var b = "a is $a"
-//    println(b)
-//    println("c is ${b.replace("a is ", "")}")
-/*    var age: String = "23"
-    println(age)*/
-//    println(age)
 
-/*    val ages1 = age?.toInt()
-    println(ages1)
+    printOut("1234567890")
 
-    val ages2 = age?.toInt() ?: -1
-    println(ages2)*/
 }
 
-fun vars(vararg v: Int) {
-    for (vt in v)
-        print(vt)
+fun printOut(str : String) {
+    val a = truncateBytes(str, Charset.defaultCharset(), 4)
+    println(a)
+    if (a != str) {
+        printOut(str.drop(a.length))
+    }
 }
+
+
+fun truncateBytes(s: String, charset: Charset, maxBytes: Int): String {
+    val cb = CharBuffer.wrap(s)
+    val bb = ByteBuffer.allocate(maxBytes)
+    val encoder = charset.newEncoder()
+        .onMalformedInput(CodingErrorAction.REPLACE)
+        .onUnmappableCharacter(CodingErrorAction.REPLACE)
+        .reset()
+    val cr = encoder.encode(cb, bb, true)
+    if (!cr.isOverflow) {
+        return s
+    }
+    encoder.flush(bb)
+    return cb.flip().toString()
+}
+
 
